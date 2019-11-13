@@ -42,6 +42,11 @@ class Document:
     def del_char(self):
         self._text.pop(self.pointer.point)
 
+    def update(self, is_right: bool):
+        if is_right:
+            self.pointer.point = 1
+
+
     @property
     def id(self):
         return self._id
@@ -63,11 +68,8 @@ class Pointer:
         return self._point
 
     @point.setter
-    def point(self, right: bool):
-        if right:
-            self._point += 1
-        else:
-            self._point -= 1
+    def point(self, value: int):
+        self._point += value
 
 
 class Character:
@@ -90,4 +92,3 @@ d = test.create_doc()
 d.add_char('a')
 d.add_char('b')
 print(d)
-

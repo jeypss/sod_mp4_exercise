@@ -1,5 +1,7 @@
 import click
+import os
 
+clear = lambda: os.system('cls')
 valid_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
 
 while True:
@@ -23,3 +25,5 @@ while True:
         print(c)
         print(hex_c)
         click.echo('You pressed: "' + hex_c + '"')
+
+    clear()
