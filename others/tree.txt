@@ -1,0 +1,13 @@
+C:.
+|   .gitignore
+|   README.md
+|   run.py
+|       
+\---text_editor
+    |   main.py
+    |   menu.py
+    |   
+    \---documents
+            1.txt
+            2.txt
+            

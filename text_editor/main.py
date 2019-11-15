@@ -7,6 +7,7 @@ _path_folder = os.path.dirname(os.path.abspath(__file__)) + '/documents'
 _path_docs = _path_folder + '/{}.txt'
 
 class Editor:
+    """ Contains the set of Document objects """
     def __init__(self):
         self.docs = OrderedDict()
 
@@ -24,6 +25,11 @@ class Editor:
         self.load_docs()
 
     def open_doc(self, doc_id):
+        """
+        Open a Document object
+        :param doc_id: int
+        :return:
+        """
         try:
             doc = self.docs[int(doc_id)]
             self.editor_loop(doc=doc)
@@ -32,6 +38,11 @@ class Editor:
         return True
 
     def create_doc(self, doc_name='New Document'):
+        """
+        Create a Document object
+        :param doc_name: str
+        :return:
+        """
         new_doc = Document(doc_name=doc_name)
         self.docs[new_doc.id] = new_doc
 
@@ -39,6 +50,10 @@ class Editor:
         return True
 
     def load_docs(self):
+        """
+        Load existing .txt files in the "./documents/" as Document objects and sort using modified date
+        :return:
+        """
         files = [file for file in os.listdir(_path_folder) if os.path.isfile(os.path.join(_path_folder, file))]
         files.sort(key=lambda file: os.path.getmtime(os.path.join(_path_folder, file)))
 
@@ -55,6 +70,11 @@ class Editor:
             self.docs[new_doc.id] = new_doc
 
     def editor_loop(self, doc):
+        """
+        Main loop in editing a document object
+        :param doc:
+        :return:
+        """
         while True:
             self._clear()
             click.echo(self._editor_commands)
@@ -94,6 +114,10 @@ class Editor:
         self.load_docs()
 
     def display_all(self):
+        """
+        Display all Document objects' ID and Name
+        :return:
+        """
         self._clear()
         for key, doc in self.docs.items():
             click.echo('Document ID: {}  :   Document Name:  {}.txt'.format(key, doc.name))
@@ -104,6 +128,7 @@ class Editor:
         os.system('cls')
 
 class Document:
+    """ Main Document Class"""
     doc_id = 1
 
     def __init__(self, doc_name):
@@ -123,16 +148,30 @@ class Document:
         return ''.join(map(str, self._text))
 
     def save(self):
+        """
+        Saves the current Document object text attribute to a .txt file
+        :return:
+        """
         with open(_path_docs.format(self._name), 'w+') as file:
             file.write(self.text)
 
     def add_char(self, value, to_move=True):
+        """
+        Add a character
+        :param value: str
+        :param to_move: bool: True -- if the pointer needs to move the pointer to the right by 1
+        :return:
+        """
         self._text.insert(self.pointer.point, Character(value))
 
         if to_move:
             self.move()
 
     def del_char(self):
+        """
+        Deletes a character
+        :return:
+        """
         try:
             self._text.pop(self.pointer.point - 1)
         except IndexError:
@@ -141,6 +180,11 @@ class Document:
         self.move(is_right=False)
 
     def move(self, is_right=True):
+        """
+        Move the pointer to the left or right by 1 unit
+        :param is_right: bool: True -- if the pointer needs to move to the right by 1
+        :return:
+        """
         if is_right:
 
             if len(self._text) < self.pointer.point:
