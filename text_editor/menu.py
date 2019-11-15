@@ -18,6 +18,7 @@ class Menu:
                             '3  -   Exit Program\n'
 
     def display_options(self):
+        self._clear()
         choice = input(self._str_options)
 
         try:
@@ -25,6 +26,7 @@ class Menu:
                 param = input('Please type in a valid document file name: ')
                 state = self._options[choice](param)
             elif choice == '2':
+                self._editor.display_all()
                 param = input('Please type in a valid document ID: ')
                 state = self._options[choice](param)
             else:
