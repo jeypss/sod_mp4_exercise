@@ -132,9 +132,9 @@ class Document:
     doc_id = 1
 
     def __init__(self, doc_name):
-        self._id = Document.doc_id
+        self.id = Document.doc_id
         self._text = []
-        self._name = doc_name
+        self.name = doc_name
         self.pointer = Pointer()
 
         self.font_style = {'BOLD': [False, ('<b>', '</b>')],
@@ -194,17 +194,6 @@ class Document:
         else:
             self.pointer.point = -1
 
-    def check_markup(self):
-        pass
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def id(self):
-        return self._id
-
     @property
     def text(self):
         return ''.join(map(str, self._text))
@@ -218,9 +207,6 @@ class Pointer:
     def __init__(self):
         self._point = 0
 
-    def select_indices(self):
-        pass
-
     @property
     def point(self):
         return self._point
@@ -230,9 +216,14 @@ class Pointer:
         if self._point != 0 or value > 0:
             self._point += value
 
+    # MOVE METHOD HERE
+
 class Character:
     def __init__(self, value):
         self.value = value
+        # self.tags
 
     def __repr__(self):
         return self.value
+
+    # assign tag METHOD
